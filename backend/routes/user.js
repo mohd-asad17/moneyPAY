@@ -2,7 +2,7 @@ const express = require('express');
 const zod = require('zod');
 const router = express.Router();
 import { JWT_SECRET } from '../config';
-import { User } from '../db';
+import { Account, User } from '../db';
 const jwt = require('jsonwebtoken');
 const {authMiddleware} = require('../middleware');
 
@@ -38,8 +38,13 @@ router.post('/signup', async (req, res) => {
         lastName: req.body.lastName
     })
 
+   
     const userId = user._id;
-
+     await Account.create({
+        userId,
+        balance: 1+ Math.random()*10000
+    })
+    
     const token = jwt.sign({
         userId
     }, JWT_SECRET);
@@ -121,7 +126,7 @@ router.get('/bulk', async (req, res) => {
         }]
     })
 
-    res.json({
+    res.status(200).json({
         user: users.map(user =>({
             username: user.username,
             firstName : user.firstName,
