@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect("mongodb+srv://asadn01702:UzOXtjyJwKwW8BXz@cluster0.vtx4jio.mongodb.net/paytm-app");
+const DATABASE_URL = process.env.DATABASE_URL;
+
+mongoose.connect(DATABASE_URL);
 
 const userSchema = new mongoose.Schema({
     username: {
