@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("");
+mongoose.connect("mongodb+srv://asadn01702:UzOXtjyJwKwW8BXz@cluster0.vtx4jio.mongodb.net/paytm-app");
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         minLength: 4,
-        maxLength: 10
+        maxLength: 20
     },
     password: {
         type: String,

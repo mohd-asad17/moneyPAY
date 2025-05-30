@@ -1,8 +1,8 @@
 const express = require('express');
 const zod = require('zod');
 const router = express.Router();
-import { JWT_SECRET } from '../config';
-import { Account, User } from '../db';
+const JWT_SECRET =  require('../config');
+const {Account, User } = require('../db');
 const jwt = require('jsonwebtoken');
 const {authMiddleware} = require('../middleware');
 
@@ -14,8 +14,8 @@ const signupSchema = zod.object({
 })
 
 router.post('/signup', async (req, res) => {
-    const { inputPayload } = signupSchema.safeParse(req.body);
-    if (!inputPayload) {
+    const { success } = signupSchema.safeParse(req.body);
+    if (!success) {
         return res.status(411).json({
             msg: "Email already taken / Incorrect inputs"
         })
@@ -44,7 +44,7 @@ router.post('/signup', async (req, res) => {
         userId,
         balance: 1+ Math.random()*10000
     })
-    
+
     const token = jwt.sign({
         userId
     }, JWT_SECRET);
@@ -61,9 +61,9 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/signin', async (req, res) => {
-    const {inputPayload} = siginSchema.safeParse(req.body);
+    const {success} = siginSchema.safeParse(req.body);
 
-    if(!inputPayload){
+    if(!success){
         return res.status(411).json({
             msg: "email already taken / Incorrect Input"
         })
