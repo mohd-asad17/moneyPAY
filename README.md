@@ -12,5 +12,10 @@
 ## Environment Setup
 1. Clone the repo
 2. Run the Command
-    `npm install
-   `npm run dev
+```bash
+  npm install 
+  cd my-project
+  npm run dev
+```
+
+
